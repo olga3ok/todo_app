@@ -25,7 +25,7 @@ cd todo_app
 ```
 3. Создайте и активируйте виртуальное окружение:
 ```
-python -m venv/venv
+python -m venv venv
 source venv/bin/activate
 ```
 4. Установите зависимости:
