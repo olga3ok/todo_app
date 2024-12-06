@@ -30,7 +30,7 @@ source venv/bin/activate
 ```
 4. Установите зависимости:
 ```
-pip install -r backend/requirements.txt
+pip install -r requirements.txt
 ```
 ## Frontend (React)
 1. Перейдите в директорию frontend:
@@ -55,11 +55,12 @@ DEBUG=
 ```
 2. Примените миграции:
 ```
-python backend/manage.py migrate
+python manage.py makemigrations
+python manage.py migrate
 ```
 3. Запустите сервер:
 ```
-python backend/manage.py migrate
+python manage.py runserver
 ```
 ### Frontend (React)
 1. Перейдите в директорию todo_app/frontend и запустите сервер:
