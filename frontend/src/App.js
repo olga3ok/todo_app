@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import api, { getTodos } from './api';
+import axios from "axios";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -27,14 +28,15 @@ const App = () => {
   }, [filter]);
 
   // Получение категорий
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback( async () => {
     try {
-      const response = await api.get('categories/');
+      let response;
+      response = await api.get('categories/');
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
-  };
+  }, []);
 
   // Загрузка задач и категорий при монтировании компонента
   useEffect(() => {

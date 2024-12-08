@@ -3,6 +3,14 @@
 .idea/
 .migrations/
 
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# production
+/build
+
 # Vagrant
 .vagrant/
 

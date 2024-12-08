@@ -1,54 +1,35 @@
-version: '3.8'
+version: '3'
+
+volumes:
+  pg_data:
+  static:
 
 services:
   db:
-    image: postgres:13
+    image: postgres:13.10
+    env_file: .env
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    networks:
-      - djangonetwork
+      - pg_data:/var/lib/postgresql/data
 
   backend:
     build: .
-    command: >
-      sh -c "python backend/manage.py makemigrations &&
-             python backend/manage.py migrate &&
-             python backend/manage.py runserver 0.0.0.0:8000"
-    ports:
-      - "8000:8000"
+    env_file: .env
     volumes:
-      - ./backend:/./backend
-    env_file:
-      - ./backend/.env
+      - static:/backend_static
     depends_on:
       - db
-    links:
-      - db:db
-    networks:
-      - djangonetwork
+    ports:
+      - "8000:8000"
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
       - ./frontend:/app
-    depends_on:
-      - backend
-    networks:
-      - djangonetwork
-
-networks:
-  djangonetwork:
-    driver: bridge
-volumes:
-  postgres_data:
 
